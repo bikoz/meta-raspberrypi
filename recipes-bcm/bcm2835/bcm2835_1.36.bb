@@ -21,7 +21,7 @@ do_compile_append() {
     # Now compiling the examples provided by the package
     mkdir -p ${B}/examples
     for file in `ls ${S}/examples`; do
-        ${CC} ${S}/examples/${file}/${file}.c -o ${B}/examples/${file} -Bstatic -L${B}/src -lbcm2835 -I${S}/src
+        ${CC} ${S}/examples/${file}/${file##*/}.c -o ${B}/examples/${file}/${file##*/} -Bstatic -L${B}/src -lbcm2835 -I${S}/src
     done
 }
 
@@ -29,7 +29,7 @@ do_install_append() {
     install -d ${D}/${libdir}/${BPN}
     for file in ${B}/examples/*
     do
-        install -m 0755 ${file} ${D}/${libdir}/${BPN}
+        install -m 0755 ${file}/${file##*/} ${D}/${libdir}/${BPN}
     done
 }
 
